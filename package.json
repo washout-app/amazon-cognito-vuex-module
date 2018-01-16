@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "Vuex module for Amazon Cognito",
   "main": "lib/index.js",
-  "keywords": [
-    "Vuex",
-    "Vuex",
-    "Amazon",
-    "Cognito"
-  ],
+  "keywords": ["Vuex", "Vuex", "Amazon", "Cognito"],
   "author": "krols.bj@gmail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Botre/amazon-cognito-vuex-module"
+  },
   "scripts": {
     "build": "webpack --progress"
   },
