@@ -9,8 +9,8 @@ import {
 export function AmazonCognitoVuexModule(configuration) {
   Config.region = configuration.region;
   const pool = new CognitoUserPool({
-    UserPoolId: configuration.UserPoolId,
-    ClientId: configuration.ClientId
+    UserPoolId: configuration.userPoolId,
+    ClientId: configuration.clientId
   });
   return {
     state: {
