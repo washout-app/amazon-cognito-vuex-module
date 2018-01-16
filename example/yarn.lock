@@ -70,9 +70,9 @@ amazon-cognito-identity-js@^1.31.0:
     aws-sdk "2.177.0"
     js-cookie "^2.1.4"
 
-amazon-cognito-vuex-module@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-vuex-module/-/amazon-cognito-vuex-module-1.0.1.tgz#ae5848ab472270a21474992ec5fb2987fcd21811"
+amazon-cognito-vuex-module@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-vuex-module/-/amazon-cognito-vuex-module-1.0.2.tgz#94ee35e9a878f5df11b1a19ca89c6b8781ef5a41"
   dependencies:
     amazon-cognito-identity-js "^1.31.0"
 
