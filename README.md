@@ -1,4 +1,5 @@
 # Amazon Cognito Vuex Module
+
 > Vuex module for Amazon Cognito
 
 ## Installation
@@ -30,5 +31,59 @@ new Vue({
   render: h => h(App),
   store
 });
-
 ```
+
+## API
+
+### State
+
+**The authenticated entity (null if none)**
+
+`$store.state.authenticated`
+
+### Actions
+
+**Check whether a user is currently authenticated, if so: update state**
+
+`$store.dispatch('checkAuthentication')`
+
+**Authenticate user and establish session**
+
+`$store.dispatch('authenticateUser', {email: 'hello@world.com', password: 'foobar'})`
+
+**Authenticate user and establish session**
+
+`$store.dispatch('authenticateUser', {email: 'hello@world.com', password: 'foobar'})`
+
+**Fetch attributes of the authenticated user**
+
+`$store.dispatch('getUserAttributes')`
+
+**Change password of the currently authenticated user (given the current and new passwords)**
+
+`$store.dispatch('changePassword', {currentPassword: 'Hello', oldPassword: 'World!'})`
+
+**Initiate lost password procedure (send verification code to user)**
+
+`$store.dispatch('forgotPassword', {email: 'hello@world.com'})`
+
+**Confirm a new password for a given email, verification code and new password**
+
+`$store.dispatch('confirmPassword', {email: 'hello@world.com', verificationCode: 1337, newPassword: 'dontforgetme'})`
+
+**Sign up a new user for a given email and password (then sends registration verification code)**
+
+`$store.dispatch('signUp', {email: 'hello@world.com', password: 'dontforgetme'})`
+
+**Confirm a registration for a given email and registration verification code**
+
+`$store.dispatch('confirmRegistration', {email: 'hello@world.com', verificationCode: 1337})`
+
+**Re-send the registration verification code**
+
+`$store.dispatch('resendConfirmationCode', {email: 'hello@world.com'})`
+
+**Sign out user**
+
+`$store.dispatch('signOut')`
+

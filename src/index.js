@@ -30,7 +30,7 @@ export function AmazonCognitoVuexModule(configuration) {
       }
     },
     actions: {
-      /* Check whether user is authenticated */
+      /* Check whether a user is currently authenticated, if so: update state */
       checkAuthentication({ commit }) {
         return new Promise((resolve, reject) => {
           const user = pool.getCurrentUser();
@@ -76,7 +76,7 @@ export function AmazonCognitoVuexModule(configuration) {
           );
         });
       },
-      /* Get attributes for the authenticated user */
+      /* Fetch attributes of the authenticated user */
       getUserAttributes({ commit }) {
         return new Promise((resolve, reject) => {
           const user = pool.getCurrentUser();
@@ -104,7 +104,7 @@ export function AmazonCognitoVuexModule(configuration) {
           }
         });
       },
-      /* Change password of the currently authenticated user (given the old and new passwords) */
+      /* Change password of the currently authenticated user (given the current and new passwords) */
       changePassword({ commit }, payload) {
         return new Promise((resolve, reject) => {
           const currentPassword = payload.currentPassword;
@@ -151,7 +151,7 @@ export function AmazonCognitoVuexModule(configuration) {
           });
         });
       },
-      /* Confirm a new password for a given email, verification code (from lost password) and new password triplet */
+      /* Confirm a new password for a given email, verification code and new password */
       confirmPassword({ commit }, payload) {
         return new Promise((resolve, reject) => {
           const email = payload.email;
