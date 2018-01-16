@@ -1,20 +1,22 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const SRC = path.resolve(__dirname, './src');
-const LIB = path.resolve(__dirname, './lib');
+const LIBRARY_NAME = 'index';
+const OUTPUT_FILE = `${LIBRARY_NAME}.js`;
 
 module.exports = {
-  entry: path.resolve(SRC, 'index.js'),
+  entry: __dirname + '/src/index.js',
   output: {
-    filename: 'index.js',
-    path: LIB
+    path: __dirname + '/lib',
+    filename: OUTPUT_FILE,
+    library: LIBRARY_NAME,
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: SRC,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
