@@ -9,7 +9,7 @@ Easily link your Vuex application to an Amazon Cognito User Pool.
 * Federated Identities are not supported (pull request welcome)
 * Email is used instead of username.
 * API naming parallels AWS SDK naming.
-* Module size: +-300KB, optimization pull requests are welcome. 
+* Module size: +-300KB, optimization pull requests are welcome.
 
 ## Links
 
@@ -53,7 +53,7 @@ new Vue({
 
 **The authenticated entity (null if none)**
 
-`$store.state.authenticated`
+`$store.state.cognito.authenticated`
 
 ### Actions
 
@@ -96,4 +96,3 @@ new Vue({
 **Sign out user**
 
 `$store.dispatch('signOut')`
-
