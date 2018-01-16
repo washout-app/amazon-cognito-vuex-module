@@ -1,0 +1,27 @@
+{
+  "name": "amazon-cognito-vuex-module",
+  "version": "1.0.0",
+  "description": "Vuex module for Amazon Cognito",
+  "main": "lib/index.js",
+  "keywords": [
+    "Vuex",
+    "Vuex",
+    "Amazon",
+    "Cognito"
+  ],
+  "author": "krols.bj@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --progress"
+  },
+  "dependencies": {
+    "amazon-cognito-identity-js": "^1.31.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "webpack": "^3.10.0"
+  }
+}
