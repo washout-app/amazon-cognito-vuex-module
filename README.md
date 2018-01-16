@@ -2,6 +2,13 @@
 
 > Vuex module for Amazon Cognito
 
+Easily link your Vue application with an Amazon Cognito User Pool.
+
+## Links
+
+* Vuex: https://vuex.vuejs.org/en/
+* Cognito: https://aws.amazon.com/cognito/
+
 ## Installation
 
 ```
