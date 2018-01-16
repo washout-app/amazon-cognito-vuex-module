@@ -1,4 +1,6 @@
-import { Config, CognitoIdentityCredentials } from 'aws-sdk';
+import Config  from 'aws-sdk/clients/configservice';
+import { CognitoIdentityCredentials } from 'aws-sdk/global';
+
 import {
   AuthenticationDetails,
   CognitoUser,
