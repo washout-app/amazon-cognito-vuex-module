@@ -6,7 +6,7 @@ Easily link your Vuex application to an Amazon Cognito User Pool.
 
 ## Notes
 
-* Federated Identities not supported (pull request welcome)
+* Federated Identities are not supported (pull request welcome)
 * Email is used instead of username.
 * API naming parallels AWS SDK naming.
 * Module size: +-300KB, optimization pull requests are welcome. 
@@ -60,10 +60,6 @@ new Vue({
 **Check whether a user is currently authenticated, if so: update state**
 
 `$store.dispatch('checkAuthentication')`
-
-**Authenticate user and establish session**
-
-`$store.dispatch('authenticateUser', {email: 'hello@world.com', password: 'foobar'})`
 
 **Authenticate user and establish session**
 
