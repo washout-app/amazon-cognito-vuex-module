@@ -24,6 +24,10 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       }
     ]
   },
@@ -33,7 +37,9 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     // Minify with dead-code elimination.
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: { except: ['exports'] }
+    }),
     // Enable scope hoisting.
     new webpack.optimize.ModuleConcatenationPlugin(),
     // Visualize size of webpack output files with an interactive zoomable treemap.
