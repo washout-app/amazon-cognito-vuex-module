@@ -36,7 +36,7 @@ export function AmazonCognitoVuexModule(configuration) {
           const user = pool.getCurrentUser();
           if (user == null) {
             commit('setAuthenticated', null);
-            reject('Unauthenticated');
+            resolve(false);
           } else {
             user.getSession((error, session) => {
               if (error) {
@@ -44,7 +44,7 @@ export function AmazonCognitoVuexModule(configuration) {
                 reject('Session error');
               } else {
                 commit('setAuthenticated', user);
-                resolve('Authenticated');
+                resolve(true);
               }
             });
           }
