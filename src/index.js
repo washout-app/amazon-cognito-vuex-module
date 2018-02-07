@@ -73,7 +73,7 @@ export function AmazonCognitoVuexModule(configuration) {
                 resolve('Authenticated');
               },
               newPasswordRequired: (userAttributes, requiredAttributes) => {
-                cognitoUser.completeNewPasswordChallenge(payload.newPassword, attributesData, {
+                user.completeNewPasswordChallenge(payload.newPassword, attributesData, {
                   onFailure: error => {
                     reject(error);
                   },
