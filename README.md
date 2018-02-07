@@ -52,9 +52,13 @@ new Vue({
 
 ### State
 
-**The authenticated entity (null if none)**
+**The authenticated user (null if none)**
 
 `$store.state.cognito.authenticated`
+
+**Whether the user who attempted to authenticate should set a new password**
+
+`$store.state.cognito.newPasswordRequired`
 
 ### Actions
 

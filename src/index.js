@@ -1,4 +1,4 @@
-import Config  from 'aws-sdk/clients/configservice';
+import Config from 'aws-sdk/clients/configservice';
 import { CognitoIdentityCredentials } from 'aws-sdk/global';
 
 import {
@@ -16,11 +16,15 @@ export function AmazonCognitoVuexModule(configuration) {
   });
   return {
     state: {
-      authenticated: null
+      authenticated: null,
+      newPasswordRequired: false
     },
     mutations: {
       setAuthenticated(state, payload) {
         state.authenticated = payload;
+      },
+      setNewPasswordRequired(state, required) {
+        state.newPasswordRequired = required;
       },
       setAttributes(state, attributes) {
         state.authenticated = {
@@ -52,6 +56,7 @@ export function AmazonCognitoVuexModule(configuration) {
       },
       /* Authenticate user and establish session */
       authenticateUser({ commit }, payload) {
+        commit('setNewPasswordRequired', false);
         return new Promise((resolve, reject) => {
           const email = payload.email;
           const password = payload.password;
@@ -71,6 +76,10 @@ export function AmazonCognitoVuexModule(configuration) {
               onSuccess: session => {
                 commit('setAuthenticated', user);
                 resolve('Authenticated');
+              },
+              newPasswordRequired: _ => {
+                commit('setNewPasswordRequired', true);
+                resolve('New password required');
               }
             }
           );
@@ -145,7 +154,7 @@ export function AmazonCognitoVuexModule(configuration) {
             onSuccess: result => {
               resolve(result);
             },
-            onFailure: function(error) {
+            onFailure: function (error) {
               reject(error);
             }
           });
@@ -165,7 +174,7 @@ export function AmazonCognitoVuexModule(configuration) {
             onSuccess: result => {
               resolve(result);
             },
-            onFailure: function(error) {
+            onFailure: function (error) {
               reject(error);
             }
           });
