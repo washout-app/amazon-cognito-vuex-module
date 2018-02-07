@@ -1,6 +1,6 @@
 {
   "name": "amazon-cognito-vuex-module",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Vuex module for Amazon Cognito",
   "main": "lib/index.js",
   "keywords": [
