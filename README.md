@@ -98,10 +98,6 @@ new Vue({
 
 `$store.dispatch('resendConfirmationCode', {email: 'hello@world.com'})`
 
-**Set new password for a user that was created using AdminCreateUser API**
-
-`$store.dispatch('completeNewPasswordChallenge', {email: 'foo@bar.com', newPassword: 'HelloPassword'})`
-
 **Sign out user**
 
 `$store.dispatch('signOut')`

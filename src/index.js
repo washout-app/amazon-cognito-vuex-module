@@ -16,25 +16,17 @@ export function AmazonCognitoVuexModule(configuration) {
   });
   return {
     state: {
-      authenticated: null,
-      newPasswordRequired: false,
-      _userAttributes: null
+      authenticated: null
     },
     mutations: {
       setAuthenticated(state, payload) {
         state.authenticated = payload;
-      },
-      setNewPasswordRequired(state, required) {
-        state.newPasswordRequired = required;
       },
       setAttributes(state, attributes) {
         state.authenticated = {
           ...state.authenticated,
           attributes
         };
-      },
-      _setUserAttributes(state, _userAttributes) {
-        state._userAttributes = _userAttributes
       }
     },
     actions: {
@@ -60,8 +52,6 @@ export function AmazonCognitoVuexModule(configuration) {
       },
       /* Authenticate user and establish session */
       authenticateUser({ commit }, payload) {
-        commit('setNewPasswordRequired', false);
-        commit('_setUserAttributes', null);
         return new Promise((resolve, reject) => {
           const email = payload.email;
           const password = payload.password;
@@ -83,9 +73,14 @@ export function AmazonCognitoVuexModule(configuration) {
                 resolve('Authenticated');
               },
               newPasswordRequired: (userAttributes, requiredAttributes) => {
-                commit('setNewPasswordRequired', true);
-                commit('_setUserAttributes', userAttributes);
-                resolve('New password required');
+                cognitoUser.completeNewPasswordChallenge(payload.newPassword, attributesData, {
+                  onFailure: error => {
+                    reject(error);
+                  },
+                  onSuccess: session => {
+                    resolve('Password changed');
+                  }
+                })
               }
             }
           );
@@ -238,33 +233,6 @@ export function AmazonCognitoVuexModule(configuration) {
               reject(error);
             } else {
               resolve(result);
-            }
-          });
-        });
-      },
-      /* Set new password for a user that was created using AdminCreateUser API */
-      completeNewPasswordChallenge({ commit, state }, payload) {
-        return new Promise((resolve, reject) => {
-          const email = payload.email;
-          const newPassword = payload.newPassword;
-          const user = new CognitoUser({
-            Username: email,
-            Pool: pool
-          });
-          let userAttributes = { ...state._userAttributes }
-          delete userAttributes.email_verified;
-          user.getSession((error, session) => {
-            if (error) {
-              reject(error);
-            } else {
-              user.completeNewPasswordChallenge(newPassword, userAttributes, {
-                onFailure: error => {
-                  reject(error);
-                },
-                onSuccess: session => {
-                  resolve('Password changed');
-                }
-              });
             }
           });
         });
