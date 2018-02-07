@@ -253,12 +253,18 @@ export function AmazonCognitoVuexModule(configuration) {
           });
           let userAttributes = { ...state._userAttributes }
           delete userAttributes.email_verified;
-          user.completeNewPasswordChallenge(newPassword, userAttributes, {
-            onFailure: error => {
+          user.getSession((error, session) => {
+            if (error) {
               reject(error);
-            },
-            onSuccess: session => {
-              resolve('Password changed');
+            } else {
+              user.completeNewPasswordChallenge(newPassword, userAttributes, {
+                onFailure: error => {
+                  reject(error);
+                },
+                onSuccess: session => {
+                  resolve('Password changed');
+                }
+              });
             }
           });
         });
