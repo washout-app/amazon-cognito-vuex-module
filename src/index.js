@@ -17,7 +17,8 @@ export function AmazonCognitoVuexModule(configuration) {
   return {
     state: {
       authenticated: null,
-      newPasswordRequired: false
+      newPasswordRequired: false,
+      _userAttributes: null
     },
     mutations: {
       setAuthenticated(state, payload) {
@@ -31,6 +32,9 @@ export function AmazonCognitoVuexModule(configuration) {
           ...state.authenticated,
           attributes
         };
+      },
+      _setUserAttributes(state, _userAttributes) {
+        state._userAttributes = _userAttributes
       }
     },
     actions: {
@@ -57,6 +61,7 @@ export function AmazonCognitoVuexModule(configuration) {
       /* Authenticate user and establish session */
       authenticateUser({ commit }, payload) {
         commit('setNewPasswordRequired', false);
+        commit('_setUserAttributes', null);
         return new Promise((resolve, reject) => {
           const email = payload.email;
           const password = payload.password;
@@ -77,8 +82,9 @@ export function AmazonCognitoVuexModule(configuration) {
                 commit('setAuthenticated', user);
                 resolve('Authenticated');
               },
-              newPasswordRequired: _ => {
+              newPasswordRequired: (userAttributes, requiredAttributes) => {
                 commit('setNewPasswordRequired', true);
+                commit('_setUserAttributes', userAttributes);
                 resolve('New password required');
               }
             }
@@ -228,6 +234,26 @@ export function AmazonCognitoVuexModule(configuration) {
             Pool: pool
           });
           user.resendConfirmationCode((error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          });
+        });
+      },
+      /* Set new password for a user that was created using AdminCreateUser API */
+      completeNewPasswordChallenge({ commit, state }, payload) {
+        return new Promise((resolve, reject) => {
+          const email = payload.email;
+          const newPassword = payload.newPassword;
+          const user = new CognitoUser({
+            Username: email,
+            Pool: pool
+          });
+          let userAttributes = { ...state._userAttributes }
+          delete userAttributes.email_verified;
+          user.completeNewPasswordChallenge(newPassword, userAttributes, (error, result) => {
             if (error) {
               reject(error);
             } else {
