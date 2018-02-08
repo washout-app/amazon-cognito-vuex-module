@@ -65,15 +65,22 @@ export function AmazonCognitoVuexModule(configuration) {
               Password: password
             }),
             {
-              onFailure: function (error) {
+              onFailure: function(error) {
                 reject(error);
               },
-              onSuccess: function (session) {
+              onSuccess: function(session) {
                 commit('setAuthenticated', user);
                 resolve(session);
               },
-              newPasswordRequired: function (userAttributes, requiredAttributes) {
-                user.completeNewPasswordChallenge(payload.newPassword, userAttributes, this)
+              newPasswordRequired: function(
+                userAttributes,
+                requiredAttributes
+              ) {
+                user.completeNewPasswordChallenge(
+                  payload.newPassword,
+                  userAttributes,
+                  this
+                );
               }
             }
           );
@@ -148,7 +155,7 @@ export function AmazonCognitoVuexModule(configuration) {
             onSuccess: result => {
               resolve(result);
             },
-            onFailure: function (error) {
+            onFailure: function(error) {
               reject(error);
             }
           });
@@ -168,7 +175,7 @@ export function AmazonCognitoVuexModule(configuration) {
             onSuccess: result => {
               resolve(result);
             },
-            onFailure: function (error) {
+            onFailure: function(error) {
               reject(error);
             }
           });
