@@ -56,10 +56,6 @@ new Vue({
 
 `$store.state.cognito.authenticated`
 
-**Whether the user who attempted to authenticate should set a new password**
-
-`$store.state.cognito.newPasswordRequired`
-
 ### Actions
 
 **Check whether a user is currently authenticated, if so: update state**
