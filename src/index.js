@@ -65,14 +65,14 @@ export function AmazonCognitoVuexModule(configuration) {
               Password: password
             }),
             {
-              onFailure: function(error) {
+              onFailure: function (error) {
                 reject(error);
               },
-              onSuccess: function(session) {
+              onSuccess: function (session) {
                 commit('setAuthenticated', user);
-                resolve('Authenticated');
+                resolve(session);
               },
-              newPasswordRequired: function(userAttributes, requiredAttributes) {
+              newPasswordRequired: function (userAttributes, requiredAttributes) {
                 user.completeNewPasswordChallenge(payload.newPassword, userAttributes, this)
               }
             }
