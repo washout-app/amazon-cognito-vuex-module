@@ -76,6 +76,7 @@ export function AmazonCognitoVuexModule(configuration) {
                 userAttributes,
                 requiredAttributes
               ) {
+                delete userAttributes.email_verified; // Immutable field
                 user.completeNewPasswordChallenge(
                   payload.newPassword,
                   userAttributes,
