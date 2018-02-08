@@ -44,7 +44,7 @@ export function AmazonCognitoVuexModule(configuration) {
                 reject('Session error');
               } else {
                 commit('setAuthenticated', user);
-                resolve(true);
+                resolve(session);
               }
             });
           }
