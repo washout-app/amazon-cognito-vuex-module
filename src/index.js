@@ -16,11 +16,15 @@ export function AmazonCognitoVuexModule(configuration) {
   });
   return {
     state: {
-      authenticated: null
+      authenticated: null,
+      attempted: false
     },
     mutations: {
       setAuthenticated(state, payload) {
         state.authenticated = payload;
+      },
+      setAttempted(state, attempted) {
+        state.attempted = payload;
       },
       setAttributes(state, attributes) {
         state.authenticated = {
@@ -33,6 +37,7 @@ export function AmazonCognitoVuexModule(configuration) {
       /* Check whether a user is currently authenticated, if so: update state */
       checkAuthentication({ commit }) {
         return new Promise((resolve, reject) => {
+          commit('setAttempted', true);
           const user = pool.getCurrentUser();
           if (user == null) {
             commit('setAuthenticated', null);
@@ -53,6 +58,7 @@ export function AmazonCognitoVuexModule(configuration) {
       /* Authenticate user and establish session */
       authenticateUser({ commit }, payload) {
         return new Promise((resolve, reject) => {
+          commit('setAttempted', true);
           const email = payload.email;
           const password = payload.password;
           const user = new CognitoUser({
