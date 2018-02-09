@@ -16,15 +16,11 @@ export function AmazonCognitoVuexModule(configuration) {
   });
   return {
     state: {
-      authenticated: null,
-      attempted: false
+      authenticated: null
     },
     mutations: {
       setAuthenticated(state, payload) {
         state.authenticated = payload;
-      },
-      setAttempted(state, attempted) {
-        state.attempted = attempted;
       },
       setAttributes(state, attributes) {
         state.authenticated = {
@@ -39,12 +35,10 @@ export function AmazonCognitoVuexModule(configuration) {
         return new Promise((resolve, reject) => {
           const user = pool.getCurrentUser();
           if (user == null) {
-            commit('setAttempted', true);
             commit('setAuthenticated', null);
             resolve(false);
           } else {
             user.getSession((error, session) => {
-              commit('setAttempted', true);
               if (error) {
                 commit('setAuthenticated', null);
                 reject('Session error');
@@ -72,11 +66,9 @@ export function AmazonCognitoVuexModule(configuration) {
             }),
             {
               onFailure: function(error) {
-                commit('setAttempted', true);
                 reject(error);
               },
               onSuccess: function(session) {
-                commit('setAttempted', true);
                 commit('setAuthenticated', user);
                 resolve(session);
               },
