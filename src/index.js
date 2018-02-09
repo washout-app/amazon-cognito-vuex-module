@@ -24,7 +24,7 @@ export function AmazonCognitoVuexModule(configuration) {
         state.authenticated = payload;
       },
       setAttempted(state, attempted) {
-        state.attempted = payload;
+        state.attempted = attempted;
       },
       setAttributes(state, attributes) {
         state.authenticated = {
