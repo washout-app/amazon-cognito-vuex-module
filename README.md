@@ -72,7 +72,7 @@ new Vue({
 
 **Change password of the currently authenticated user (given the current and new passwords)**
 
-`$store.dispatch('changePassword', {currentPassword: 'Hello', oldPassword: 'World!'})`
+`$store.dispatch('changePassword', {currentPassword: 'Hello', newPassword: 'World!'})`
 
 **Initiate lost password procedure (send verification code to user)**
 
