@@ -52,6 +52,10 @@ new Vue({
 
 ### State
 
+**Whether user authenticating is currently in progress**
+
+`$store.state.cognito.authenticating`
+
 **The authenticated user (null if none)**
 
 `$store.state.cognito.authenticated`
