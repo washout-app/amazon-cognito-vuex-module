@@ -52,7 +52,7 @@ new Vue({
 
 ### State
 
-**Whether user authenticating is currently in progress**
+**Whether user authentication is currently in progress**
 
 `$store.state.cognito.authenticating`
 
