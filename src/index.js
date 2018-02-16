@@ -16,9 +16,13 @@ export function AmazonCognitoVuexModule(configuration) {
   });
   return {
     state: {
+      authenticating: false,
       authenticated: null
     },
     mutations: {
+      setAuthenticating(state, authenticating) {
+        state.authenticating = authenticating;
+      },
       setAuthenticated(state, payload) {
         state.authenticated = payload;
       },
@@ -33,12 +37,15 @@ export function AmazonCognitoVuexModule(configuration) {
       /* Check whether a user is currently authenticated, if so: update state */
       checkAuthentication({ commit }) {
         return new Promise((resolve, reject) => {
+          commit('setAuthenticating', true);
           const user = pool.getCurrentUser();
           if (user == null) {
+            commit('setAuthenticating', false);
             commit('setAuthenticated', null);
             resolve(false);
           } else {
             user.getSession((error, session) => {
+              commit('setAuthenticating', false);
               if (error) {
                 commit('setAuthenticated', null);
                 reject('Session error');
@@ -53,6 +60,7 @@ export function AmazonCognitoVuexModule(configuration) {
       /* Authenticate user and establish session */
       authenticateUser({ commit }, payload) {
         return new Promise((resolve, reject) => {
+          commit('setAuthenticating', true);
           const email = payload.email;
           const password = payload.password;
           const user = new CognitoUser({
@@ -66,9 +74,11 @@ export function AmazonCognitoVuexModule(configuration) {
             }),
             {
               onFailure: function(error) {
+                commit('setAuthenticating', false);
                 reject(error);
               },
               onSuccess: function(session) {
+                commit('setAuthenticating', false);
                 commit('setAuthenticated', user);
                 resolve(session);
               },
@@ -76,6 +86,7 @@ export function AmazonCognitoVuexModule(configuration) {
                 userAttributes,
                 requiredAttributes
               ) {
+                commit('setAuthenticating', false);
                 delete userAttributes.email_verified; // Immutable field
                 user.completeNewPasswordChallenge(
                   payload.newPassword,

@@ -2,7 +2,8 @@
   <div id="app">
     <h1>Amazon Cognito Vuex Module Example</h1>
     <div>
-      Authenticated: {{authenticated ? authenticated.username : 'false'}}
+      <div>Authenticating: {{ authenticating }}</div>
+      <div>Authenticated: {{ authenticated ? authenticated.username : 'false' }}</div>
       <button v-if="authenticated" @click="signOut">Sign out</button>
     </div>
     <hr>
@@ -24,9 +25,19 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('checkAuthentication');
+    this.$store
+      .dispatch('checkAuthentication')
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   },
   computed: {
+    authenticating() {
+      return this.$store.state.cognito.authenticating;
+    },
     authenticated() {
       return this.$store.state.cognito.authenticated;
     }
