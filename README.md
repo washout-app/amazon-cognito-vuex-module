@@ -70,6 +70,10 @@ new Vue({
 
 `$store.dispatch('authenticateUser', {email: 'hello@world.com', password: 'foobar'})`
 
+**Fetch user session**
+
+`$store.dispatch('getUserSession')`
+
 **Fetch attributes of the authenticated user**
 
 `$store.dispatch('getUserAttributes')`

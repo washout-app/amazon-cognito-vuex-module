@@ -98,6 +98,21 @@ export function AmazonCognitoVuexModule(configuration) {
           );
         });
       },
+      /* Get user session */
+      getUserSession() {
+        return new Promise((resolve, reject) => {
+          const user = pool.getCurrentUser();
+          if (user != null) {
+            user.getSession(function(error, session) {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(session);
+              }
+            });
+          }
+        });
+      },
       /* Fetch attributes of the authenticated user */
       getUserAttributes({ commit }) {
         return new Promise((resolve, reject) => {

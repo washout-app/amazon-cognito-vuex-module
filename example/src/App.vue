@@ -49,7 +49,9 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(() => alert('authenticated'))
+        .then(() => {
+          alert('authenticated');
+        })
         .catch(error => alert(error));
     },
     signOut() {
