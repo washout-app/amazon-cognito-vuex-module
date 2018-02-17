@@ -110,6 +110,8 @@ export function AmazonCognitoVuexModule(configuration) {
                 resolve(session);
               }
             });
+          } else {
+            resolve();
           }
         });
       },
@@ -118,7 +120,7 @@ export function AmazonCognitoVuexModule(configuration) {
         return new Promise((resolve, reject) => {
           const user = pool.getCurrentUser();
           if (user == null) {
-            reject('Unauthenticated');
+            resolve();
           } else {
             user.getSession((error, session) => {
               if (error) {
