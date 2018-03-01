@@ -11,7 +11,7 @@ import {
   CognitoUserAttribute
 } from 'amazon-cognito-identity-js';
 
-export function AmazonCognitoVuexModule(configuration) {
+export default function AmazonCognitoVuexModule(configuration) {
   Config.region = configuration.region;
   const pool = new CognitoUserPool({
     UserPoolId: configuration.userPoolId,
