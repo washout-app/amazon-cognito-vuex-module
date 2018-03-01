@@ -2,7 +2,7 @@
   "name": "amazon-cognito-vuex-module",
   "version": "1.0.25",
   "description": "Vuex module for Amazon Cognito",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "keywords": ["Vuex", "Vuex", "Amazon", "Cognito"],
   "author": "krols.bj@gmail.com",
   "license": "MIT",

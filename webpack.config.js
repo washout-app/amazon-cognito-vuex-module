@@ -9,7 +9,7 @@ const OUTPUT_FILE = `${LIBRARY_NAME}.js`;
 module.exports = {
   entry: [__dirname + '/src/index.js'],
   output: {
-    path: __dirname + '/lib',
+    path: __dirname + '/dist',
     filename: OUTPUT_FILE,
     library: LIBRARY_NAME,
     libraryTarget: 'umd',
