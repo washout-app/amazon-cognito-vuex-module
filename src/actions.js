@@ -1,9 +1,15 @@
+import {
+  AuthenticationDetails,
+  CognitoUser,
+  CognitoUserAttribute
+} from 'amazon-cognito-identity-js';
+
 export default {
   /* Check whether a user is currently authenticated, if so: update state */
-  checkAuthentication({ commit }) {
+  checkAuthentication({ commit, state }) {
     return new Promise((resolve, reject) => {
       commit('setAuthenticating', true);
-      const user = pool.getCurrentUser();
+      const user = state.pool.getCurrentUser();
       if (user == null) {
         commit('setAuthenticating', false);
         commit('setAuthenticated', null);
@@ -23,14 +29,14 @@ export default {
     });
   },
   /* Authenticate user and establish session */
-  authenticateUser({ commit }, payload) {
+  authenticateUser({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       commit('setAuthenticating', true);
       const email = payload.email;
       const password = payload.password;
       const user = new CognitoUser({
         Username: email,
-        Pool: pool
+        Pool: state.pool
       });
       user.authenticateUser(
         new AuthenticationDetails({
@@ -61,9 +67,9 @@ export default {
     });
   },
   /* Get user session */
-  getUserSession() {
+  getUserSession({ state }) {
     return new Promise((resolve, reject) => {
-      const user = pool.getCurrentUser();
+      const user = state.pool.getCurrentUser();
       if (user != null) {
         user.getSession(function(error, session) {
           if (error) {
@@ -78,9 +84,9 @@ export default {
     });
   },
   /* Fetch attributes of the authenticated user */
-  getUserAttributes({ commit }) {
+  getUserAttributes({ commit, state }) {
     return new Promise((resolve, reject) => {
-      const user = pool.getCurrentUser();
+      const user = state.pool.getCurrentUser();
       if (user == null) {
         resolve();
       } else {
@@ -106,11 +112,11 @@ export default {
     });
   },
   /* Change password of the currently authenticated user (given the current and new passwords) */
-  changePassword({ commit }, payload) {
+  changePassword({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       const currentPassword = payload.currentPassword;
       const newPassword = payload.newPassword;
-      const user = pool.getCurrentUser();
+      const user = state.pool.getCurrentUser();
       if (user == null) {
         reject('Unauthenticated');
       } else {
@@ -135,12 +141,12 @@ export default {
     });
   },
   /* Initiate lost password procedure (send verification code to user) */
-  forgotPassword({ commit }, payload) {
+  forgotPassword({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       const email = payload.email;
       const user = new CognitoUser({
         Username: email,
-        Pool: pool
+        Pool: state.pool
       });
       user.forgotPassword({
         onSuccess: result => {
@@ -153,14 +159,14 @@ export default {
     });
   },
   /* Confirm a new password for a given email, verification code and new password */
-  confirmPassword({ commit }, payload) {
+  confirmPassword({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       const email = payload.email;
       const verificationCode = payload.verificationCode;
       const newPassword = payload.newPassword;
       const user = new CognitoUser({
         Username: email,
-        Pool: pool
+        Pool: state.pool
       });
       user.confirmPassword(verificationCode, newPassword, {
         onSuccess: result => {
@@ -173,7 +179,7 @@ export default {
     });
   },
   /* Sign up a new user for a given email and password (then sends registration verification code) */
-  signUp({ commit }, payload) {
+  signUp({ commit, state }, payload) {
     const email = payload.email;
     const password = payload.password;
     return new Promise((resolve, reject) => {
@@ -183,7 +189,7 @@ export default {
           Value: email
         })
       ];
-      pool.signUp(email, password, attributes, null, (error, result) => {
+      state.pool.signUp(email, password, attributes, null, (error, result) => {
         if (error) {
           reject(error);
         } else {
@@ -194,13 +200,13 @@ export default {
     });
   },
   /* Confirm a registration for a given email and registration verification code */
-  confirmRegistration({ commit }, payload) {
+  confirmRegistration({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       const email = payload.email;
       const verificationCode = payload.verificationCode;
       const user = new CognitoUser({
         Username: email,
-        Pool: pool
+        Pool: state.pool
       });
       user.confirmRegistration(verificationCode, true, (error, result) => {
         if (error) {
@@ -212,12 +218,12 @@ export default {
     });
   },
   /* Re-send the registration verification code */
-  resendConfirmationCode({ commit }, payload) {
+  resendConfirmationCode({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       const email = payload.email;
       const user = new CognitoUser({
         Username: email,
-        Pool: pool
+        Pool: state.pool
       });
       user.resendConfirmationCode((error, result) => {
         if (error) {
@@ -229,8 +235,8 @@ export default {
     });
   },
   /* Sign out user */
-  signOut({ commit }) {
-    const user = pool.getCurrentUser();
+  signOut({ commit, state }) {
+    const user = state.pool.getCurrentUser();
     if (user != null) {
       user.signOut();
       commit('setAuthenticated', null);
