@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './App.vue';
-import { AmazonCognitoVuexModule } from '../../lib/index.js';
+import AmazonCognitoVuexModule from '../../lib/index.js';
 
 Vue.use(Vuex);
 
