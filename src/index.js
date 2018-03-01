@@ -1,6 +1,7 @@
 import Config from 'aws-sdk/clients/configservice';
 import { CognitoIdentityCredentials } from 'aws-sdk/global';
 
+import mutations from './mutations';
 import actions from './actions';
 
 import {
@@ -21,20 +22,7 @@ export function AmazonCognitoVuexModule(configuration) {
       authenticating: false,
       authenticated: null
     },
-    mutations: {
-      setAuthenticating(state, authenticating) {
-        state.authenticating = authenticating;
-      },
-      setAuthenticated(state, payload) {
-        state.authenticated = payload;
-      },
-      setAttributes(state, attributes) {
-        state.authenticated = {
-          ...state.authenticated,
-          attributes
-        };
-      }
-    },
+    mutations,
     actions
   };
 }
