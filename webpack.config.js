@@ -26,6 +26,9 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    minimize: false,
+  },
   plugins: [
     // Short-circuit all warning code.
     new webpack.DefinePlugin({
