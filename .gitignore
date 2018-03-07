@@ -1,3 +1,7 @@
+# Library
+
+/dist
+
 # Editor directories and files
 .vscode
 .idea
