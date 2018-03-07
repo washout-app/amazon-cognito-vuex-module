@@ -27,11 +27,9 @@ module.exports = {
     minimize: false,
   },
   plugins: [
-    // Short-circuit all warning code.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
-    // Visualize size of webpack output files with an interactive zoomable treemap.
     new BundleAnalyzerPlugin()
   ],
   performance: {
