@@ -1,17 +1,15 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
-const LIBRARY_NAME = 'index';
-const OUTPUT_FILE = `${LIBRARY_NAME}.js`;
 
 module.exports = {
   entry: [__dirname + '/src/index.js'],
   output: {
     path: __dirname + '/dist',
-    filename: OUTPUT_FILE,
-    library: LIBRARY_NAME,
+    filename: `index.js`,
+    library: 'index',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -27,14 +25,20 @@ module.exports = {
     ]
   },
   optimization: {
-    minimize: false,
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          mangle: {
+            reserved: ['exports']
+          },
+        }
+      }),
+    ]
   },
   plugins: [
-    // Short-circuit all warning code.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
-    // Visualize size of webpack output files with an interactive zoomable treemap.
     new BundleAnalyzerPlugin()
   ],
   performance: {
