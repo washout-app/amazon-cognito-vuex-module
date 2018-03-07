@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
@@ -24,7 +25,15 @@ module.exports = {
     ]
   },
   optimization: {
-    minimize: false,
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          mangle: {
+            reserved: ['exports']
+          },
+        }
+      }),
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
