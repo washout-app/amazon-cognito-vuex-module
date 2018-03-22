@@ -19,11 +19,11 @@ Easily link your Vuex application to an Amazon Cognito User Pool.
 
 ## Installation
 
-```
+```bash
 npm install amazon-cognito-vuex-module --save
 ```
 
-```
+```javascript
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './App.vue';
@@ -50,9 +50,9 @@ new Vue({
 
 ## Axios interceptor example
 
-```
+```javascript
 // Add authentication token to each request
-axios.interceptors.request.use(as   ync config => {
+axios.interceptors.request.use(async config => {
   const response = await store.dispatch('getUserSession');
   if (response && response.accessToken && response.accessToken.jwtToken) {
     config.headers.AccessToken = response.accessToken.jwtToken;
