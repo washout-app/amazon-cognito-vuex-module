@@ -48,6 +48,19 @@ new Vue({
 });
 ```
 
+## Axios interceptor example
+
+```
+// Add authentication token to each request
+axios.interceptors.request.use(as   ync config => {
+  const response = await store.dispatch('getUserSession');
+  if (response && response.accessToken && response.accessToken.jwtToken) {
+    config.headers.AccessToken = response.accessToken.jwtToken;
+  }
+  return config;
+});
+```
+
 ## API
 
 ### State
