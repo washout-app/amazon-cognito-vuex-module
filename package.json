@@ -19,7 +19,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress"
   },
   "dependencies": {
-    "amazon-cognito-identity-js": "^1.31.0"
+    "amazon-cognito-identity-js": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
