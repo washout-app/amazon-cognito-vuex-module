@@ -118,3 +118,7 @@ axios.interceptors.request.use(async config => {
 **Sign out user**
 
 `$store.dispatch('signOut')`
+
+## Twitter
+
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/KrolsBjorn)
