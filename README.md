@@ -121,4 +121,4 @@ axios.interceptors.request.use(async config => {
 
 ## Twitter
 
-[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/KrolsBjorn)
+[Follow me on Twitter](https://twitter.com/KrolsBjorn)
