@@ -8,8 +8,8 @@ module.exports = {
   entry: [__dirname + '/src/index.js'],
   output: {
     path: __dirname + '/dist',
-    filename: `index.js`,
-    library: 'index',
+    filename: `amazon-cognito-vuex-module.js`,
+    library: 'amazon-cognito-vuex-module',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -30,9 +30,9 @@ module.exports = {
         uglifyOptions: {
           mangle: {
             reserved: ['exports']
-          },
+          }
         }
-      }),
+      })
     ]
   },
   plugins: [
