@@ -16,7 +16,7 @@
     "url": "https://github.com/Botre/amazon-cognito-vuex-module"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --progress"
+    "build": "cross-env NODE_ENV=production webpack --mode production --progress"
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^1.31.0"
