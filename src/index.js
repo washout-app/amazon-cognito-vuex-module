@@ -1,5 +1,4 @@
 import Config from 'aws-sdk/clients/configservice';
-import { CognitoIdentityCredentials } from 'aws-sdk/global';
 
 import mutations from './mutations';
 import actions from './actions';
