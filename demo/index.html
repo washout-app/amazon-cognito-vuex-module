@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>Authenticating: {{ $store.state.cognito.authenticating }}</div>
+        <div>Authenticated: {{ !!$store.state.cognito.authenticated }} <button v-if="$store.state.cognito.authenticated" type="button" @click="$store.dispatch('signOut')">Sign out</button></div>
+        <hr>
+        <form @submit.prevent="$store.dispatch('authenticateUser', { email: email, password: password })">
+            <input type="email" v-model="email" placeholder="Email">
+            <input type="password" v-model="password" placeholder="Password">
+            <button type="submit">Sign in</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+    <script src="../dist/amazon-cognito-vuex-module.js"></script>
+    <script>
+    </script>
+    <script>
+        new Vue({
+            el: '#app',
+            created() {
+                this.$store.dispatch('checkAuthentication');
+            },
+            data() {
+                return {
+                    email: null,
+                    password: null,
+                }
+            },
+            store: new Vuex.Store({
+                modules: {
+                    cognito: new window['amazon-cognito-vuex-module'].default({
+                        region: '',
+                        userPoolId: '',
+                        clientId: ''
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
