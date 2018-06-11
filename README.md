@@ -6,6 +6,7 @@ Easily link your Vuex application to an Amazon Cognito User Pool.
 
 ## Notes
 
+* This is essentialy a wrapper of the [Amazon Cognito Identity SDK for JavaScript](https://github.com/aws/aws-amplify/tree/master/packages/amazon-cognito-identity-js)
 * Federated Identities are not supported (pull request welcome).
 * Email is used instead of username.
 * API naming parallels AWS SDK naming.
