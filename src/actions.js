@@ -183,12 +183,23 @@ export default {
     const email = payload.email;
     const password = payload.password;
     return new Promise((resolve, reject) => {
-      const attributes = [
+      const attributes = [];
+      if (payload.attributesList) {
+        Object.entries(payload.attributesList).forEach(entry => {
+          attributes.push(
+            new CognitoUserAttribute({
+              Name: entry[0],
+              Value: entry[1]
+            })
+          );
+        });
+      }
+      attributes.push(
         new CognitoUserAttribute({
           Name: 'email',
           Value: email
         })
-      ];
+      );
       state.pool.signUp(email, password, attributes, null, (error, result) => {
         if (error) {
           reject(error);

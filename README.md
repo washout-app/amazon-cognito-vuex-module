@@ -104,9 +104,9 @@ axios.interceptors.request.use(async config => {
 
 `$store.dispatch('confirmPassword', {email: 'hello@world.com', verificationCode: 1337, newPassword: 'dontforgetme'})`
 
-**Sign up a new user for a given email and password (then sends registration verification code)**
+**Sign up a new user for a given email and password and attribute list (optional) (then sends registration verification code)**
 
-`$store.dispatch('signUp', {email: 'hello@world.com', password: 'dontforgetme'})`
+`$store.dispatch('signUp', {email: 'hello@world.com', password: 'dontforgetme', attributeList: { country: 'BE' }})`
 
 **Confirm a registration for a given email and registration verification code**
 
