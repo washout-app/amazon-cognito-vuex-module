@@ -19,8 +19,8 @@
     "build": "cross-env NODE_ENV=production webpack --mode production --progress"
   },
   "dependencies": {
-    "amazon-cognito-identity-js": "^2.0.14",
-    "aws-sdk": "^2.276.1"
+    "amazon-cognito-identity-js": "^2.0.19",
+    "aws-sdk": "^2.286.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -30,7 +30,7 @@
     "cross-env": "^5.2.0",
     "json-loader": "^0.5.7",
     "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "^4.16.1",
+    "webpack": "^4.16.4",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.1.5"
   }
