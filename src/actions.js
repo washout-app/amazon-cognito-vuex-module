@@ -56,6 +56,7 @@ export default {
           newPasswordRequired: function(userAttributes, requiredAttributes) {
             commit('setAuthenticating', false);
             delete userAttributes.email_verified; // Immutable field
+            delete userAttributes.phone_number_verified; // Immutable field
             user.completeNewPasswordChallenge(
               payload.newPassword,
               userAttributes,
