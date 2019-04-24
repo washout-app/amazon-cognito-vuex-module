@@ -1,6 +1,6 @@
 # Library
 
-/dist
+#/dist
 
 # Editor directories and files
 .vscode
